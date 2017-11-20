@@ -1,0 +1,11 @@
+val pDF = sqlContext.sql("SELECT * FROM parquet.`hdfs://lambda-pluralsight:9000/lambda/batch1/` WHERE page_view_count > 2")
+
+pDF.show()
+
+
+pDF.registerTempTable("source")
+
+
+%sql
+
+select length(product) as len, sum(page_view_count) page_views from source group by length(product)

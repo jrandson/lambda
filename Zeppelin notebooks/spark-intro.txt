@@ -1,0 +1,10 @@
+case class Item(itemName: String, itemNumber: Int)
+val items = (0 to 100).map( i => Item(s"name-$i", i) )
+
+val itemsRDD = sc.parallelize(items)
+val itemsDF = itemsRDD.toDF
+
+itemsDF.registerTempTable("items")
+
+%sql
+select * from items
